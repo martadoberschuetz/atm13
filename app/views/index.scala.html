@@ -1,0 +1,29 @@
+@(helloForm: Form[(Long, Long)])
+
+@import helper._
+
+@main(title = "The 'atm' application") {
+
+
+
+    @form(action = routes.Application.sayHello, args = 'id -> "helloform") {
+
+        @inputText(
+            field = helloForm("id"),
+            args = '_label -> "What is the id of the customer?", 'size -> 3, 'placeholder -> 4
+        )
+
+        @inputText(
+            field = helloForm("amountToWithdraw"),
+            args = '_label -> "How much do you wish to withdraw?", 'size -> 6, 'placeholder -> 10
+        )
+
+
+
+        <p class="buttons">
+            <input type="submit" id="submit" value="Withdraw">
+        <p>
+
+    }
+
+}
