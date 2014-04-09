@@ -4,26 +4,28 @@
 
 @main(title = "The 'atm' application") {
 
+@form(action = routes.Application.sayHello, args = 'id -> "helloform") {
+
+@helper.inputText(
+field = helloForm("id"),
 
 
-    @form(action = routes.Application.sayHello, args = 'id -> "helloform") {
+args = '_label -> "What is the id of the customer?", 'name -> "@id", 'size -> 3, 'placeholder -> 4
+)
 
-        @inputText(
-            field = helloForm("id"),
-            args = '_label -> "What is the id of the customer?", 'size -> 3, 'placeholder -> 4
-        )
+@inputText(
+field = helloForm("amountToWithdraw"),
+args = '_label -> "How much do you wish to withdraw?", 'size -> 6, 'placeholder -> 10
+)
 
-        @inputText(
-            field = helloForm("amountToWithdraw"),
-            args = '_label -> "How much do you wish to withdraw?", 'size -> 6, 'placeholder -> 10
-        )
-
-
-
-        <p class="buttons">
-            <input type="submit" id="submit" value="Withdraw">
-        <p>
+<p class="buttons">
+    <input type="submit" id="withdraw" value="Withdraw">
+<p>
 
     }
 
-}
+    }
+
+
+
+

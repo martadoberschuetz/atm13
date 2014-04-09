@@ -10,6 +10,7 @@ import views._
 import scalaj.http
 import scalaj.http.Http
 import play.api.libs.ws.WS
+import play.libs.HttpExecution
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext
 import ExecutionContext.Implicits.global
@@ -33,12 +34,25 @@ object Application extends Controller {
    * Home page
    */
   def index = Action {
-    Ok(html.index(helloForm))
+    Ok(views.html.index(helloForm))
   }
 
   /**
    * Handles the form submission.
    */
+
+
+  def sayHello = Action.async { implicit request =>
+
+    val (id, amountToWithdraw) = helloForm.bindFromRequest.get
+
+
+     //  val id = 2
+    WS.url("http://localhost:8080/customer/" + id).get().map { response =>
+      Ok(response.body)
+
+    }
+  }
 
   /*
   * previous version:
@@ -49,9 +63,36 @@ object Application extends Controller {
     {case (id, amountToWithdraw) => Ok(html.hello(id, amountToWithdraw))}
     )
   }*/
+/*
+  def sayHello = Action.async { implicit request =>
 
+ // val paramId = request.map(AnyContent => "id") //this is a request!
+ //  println(par)
 
-  def sayHello = Action.async {
+    val parameterId = request.body.asFormUrlEncoded.productArity.toLong
+  println(parameterId)
+
+    val paramVal = request.body.asFormUrlEncoded.get("id").map(_.head)
+  println(paramVal)
+
+//val parameterId = request.body.asFormUrlEncoded.get("id") //Seq[String]
+//val bla =  parameterId.headOption.get //String
+  //val asLong = bla.toLong //Long
+  //println(bla)
+  //println(asLong)
+
+   // val paramId = (request.body.asFormUrlEncoded.get("id")(0)).toLong
+  //  println(paramId)
+  // paramId map {_.toInt} getOrElse 0
+val id = 2
+    WS.url("http://localhost:8080/customer/" + id).get().map { response =>
+      Ok(response.body)
+
+    }
+  }*/
+
+  /*
+  * def sayHello = Action.async {
 
     //val id = helloForm("id")
   val id = 2
@@ -65,8 +106,41 @@ object Application extends Controller {
     WS.url("http://localhost:8080/customer/" + id).get().map { response =>
       Ok(response.body)
 
+
+      //Http.post("http://foo.com/add").params("name" -> "jon", "age" -> "29").asString
+
+      //Http.post("http://localhost:8080/customer/id").params("id" -> "4").asString
+
     }
   }
+  * */
+/*
+  def sayHello = Action { implicit request =>
+
+    val body: AnyContent = request.body
+   val textBody: Option[String] = body.asText
+
+
+   // paramId map {_.toInt} getOrElse 0
+
+    // Expecting text body
+    textBody.map { text =>
+      Ok("Got: " + text)
+    }.getOrElse {
+      BadRequest("Expecting text/plain request body")
+    }
+
+   // val id = 2
+
+
+   // WS.url("http://localhost:8080/customer/" + id).get().map { response =>
+    //  Ok(response.body)
+
+
+
+    }*/
+
+
 
   /*def showData: Unit = {
 
