@@ -53,16 +53,74 @@ object Application extends Controller {
 
   def sayHello = Action.async {
 
-    val id = 2
+    //val id = helloForm("id")
+  val id = 2
     // now instead of 2 you have to replace it with the value from the textfield
 
-    //val response =   Http("http://localhost:8080/customer/" + id).asString
-   // println(response)
+    //http://localhost:9000/hello?id=4&amountToWithdraw=
+
+   // val response =   Http("http://localhost:8080/customer/" + id).asString
+ //  println(response)
 
     WS.url("http://localhost:8080/customer/" + id).get().map { response =>
       Ok(response.body)
 
-    }}
+    }
+  }
+
+  /*def showData: Unit = {
+
+    def values = helloForm.data
+    def id = values("id")
+    def amountToWithdraw = values("amountToWithdraw")
+
+    print(id)
+    print(amountToWithdraw)
+       def paramId = request.body.asFormUrlEncoded.get("id")(0)
+    //val paramId = request.body.get("id").map(_.head)
+    def paramAmountToWithdraw = request.body.asFormUrlEncoded.get("amountToWithdraw").map(_.head)
+  val idAsInt = paramId.toString().toInt
+  val amountAsInt = paramAmountToWithdraw.toString().toInt
+    println(paramId)
+
+
+    ...
+        def values = helloForm.data
+    def id = values("id")
+    def amountToWithdraw = values("amountToWithdraw")
+
+    val idAsInt = id.toInt
+    val amountAsInt = amountToWithdraw.toInt
+
+   Ok(views.html.hello(idAsInt, amountAsInt))
+
+.....
+    val data = helloForm.bindFromRequest.get
+    Ok(views.html.hello(data._1, data._2))
+
+  }*/
+
+
+/*
+  def sayHello = Action.async{
+
+    Action { implicit request =>
+    helloForm.bindFromRequest.fold(
+    formWithErrors => BadRequest(html.index(formWithErrors)),
+    {case (id, amountToWithdraw) => Ok(html.hello(id, amountToWithdraw))
+      WS.url("http://localhost:8080/customer/" + id).get().map { response =>
+        Ok(response.body)
+    }
+    )
+  }
+    ///WS.url("http://localhost:8080/customer/" + id).get().map { response =>
+   //   Ok(response.body)
+
+  }
+
+  }*/
+
+
 
   /*
   def sayHello(id: Long, amountToWithdraw: Long) = Action.async {

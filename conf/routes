@@ -6,7 +6,8 @@
 GET     /                                        controllers.Application.index
 
 # Hello action
-GET       /hello                                 controllers.Application.sayHello
+GET       /hello                                controllers.Application.sayHello
+POST        /sayHello                           controllers.Application.sayHello
 # GET     /hello/:id/:amountToWithdraw           controllers.Application.sayHello(id: Int, amountToWithdraw: Int)
 
 # Map static resources from the /public folder to the /assets URL path
