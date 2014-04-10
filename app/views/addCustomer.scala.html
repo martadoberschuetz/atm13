@@ -1,0 +1,42 @@
+@(addCustomerForm: Form[(String, String, Long, String)])
+
+@import helper._
+
+@main(title = "Add a customer") {
+
+@form(action = routes.Application.addCustomerFunction, args = 'id -> "depositform") {
+
+    @inputText(
+        field = addCustomerForm("firstName"),
+        args = '_label -> "First name?", 'size -> 10, 'placeholder -> "Monica"
+    )
+
+    @inputText(
+        field = addCustomerForm("lastName"),
+        args = '_label -> "Last name?", 'size -> 10, 'placeholder -> "Geller"
+    )
+
+    @inputText(
+        field = addCustomerForm("accountBalance"),
+        args = '_label -> "Account balance?", 'size -> 6, 'placeholder -> 100
+    )
+
+    @inputText(
+        field = addCustomerForm("dateOfBirth"),
+        args = '_label -> "Date of birth?", 'size -> 15, 'placeholder -> 10
+    )
+
+
+    <p class="buttons">
+        <input type="submit" id="addCustomer" value="Add customer">
+    </p>
+
+}
+}
+
+
+    <p class="buttons">
+        <a href="@routes.Application.index" style="text-decoration:none">
+        <input type="submit" id="backToMain3" value="Back"></a>
+    </p>
+

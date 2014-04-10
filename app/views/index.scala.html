@@ -1,29 +1,20 @@
-@(withdrawForm: Form[(Long, Long)])
+@main("Atm"){
 
-@import helper._
 
-@main(title = "The 'atm' application") {
+<h2>Select:</h2>
 
-@form(action = routes.Application.sayHello, args = 'id -> "withdrawform") {
 
-    @inputText(
-        field = withdrawForm("id"),
-        args = '_label -> "What is the id of the customer?", 'size -> 3, 'placeholder -> 4
-    )
 
-    @inputText(
-        field = withdrawForm("amountToWithdraw"),
-        args = '_label -> "How much do you wish to withdraw?", 'size -> 6, 'placeholder -> 10
-    )
+<p class="buttons">
 
-    <p class="buttons">
-         <input type="submit" id="withdraw" value="Withdraw">
-    <p>
+    <a href="@routes.Application.showAddCustomerForm" style="text-decoration:none">
+    <input type="submit" id="goToAddCustomer" value="Add a customer"></a>
+
+    <a href="@routes.Application.showWithdrawForm" style="text-decoration:none">
+    <input type="submit" id="goToWithdraw" value="Withdraw"></a>
+
+    <a href="@routes.Application.showDepositForm" style="text-decoration:none">
+    <input type="submit" id="goToDeposit" value="Deposit"></a>
+</p>
 
 }
-
-}
-
-
-
-

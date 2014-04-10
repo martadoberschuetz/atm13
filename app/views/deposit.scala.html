@@ -1,0 +1,33 @@
+@(depositForm: Form[(Long, Long)])
+
+@import helper._
+
+@main(title = "Deposit") {
+
+@form(action = routes.Application.depositFunction, args = 'id -> "depositform") {
+
+    @inputText(
+        field = depositForm("id"),
+        args = '_label -> "What is the id of the customer?", 'size -> 3, 'placeholder -> 4
+    )
+
+    @inputText(
+        field = depositForm("amountToDeposit"),
+        args = '_label -> "How much do you wish to deposit?", 'size -> 6, 'placeholder -> 10
+    )
+
+    <p class="buttons">
+        <input type="submit" id="deposit" value="Deposit">
+    </p>
+
+
+
+
+    }
+}
+
+    <p class="buttons">
+        <a href="@routes.Application.index" style="text-decoration:none">
+        <input type="submit" id="backToMain1" value="Back"></a>
+    </p>
+

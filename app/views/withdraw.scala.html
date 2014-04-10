@@ -1,0 +1,32 @@
+@(withdrawForm: Form[(Long, Long)])
+
+@import helper._
+
+@main(title = "Withdraw") {
+
+@form(action = routes.Application.withdrawFunction, args = 'id -> "withdrawform") {
+
+    @inputText(
+        field = withdrawForm("id"),
+        args = '_label -> "What is the id of the customer?", 'size -> 3, 'placeholder -> 4
+    )
+
+    @inputText(
+        field = withdrawForm("amountToWithdraw"),
+        args = '_label -> "How much do you wish to withdraw?", 'size -> 6, 'placeholder -> 10
+    )
+
+    <p class="buttons">
+        <input type="submit" id="withdraw" value="Withdraw">
+    <p>
+    }
+}
+
+    <p class="buttons">
+        <a href="@routes.Application.index" style="text-decoration:none">
+        <input type="submit" id="backToMain2" value="Back"></a>
+    </p>
+
+
+
+
