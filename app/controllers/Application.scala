@@ -12,6 +12,7 @@ import play.libs.HttpExecution
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext
 import ExecutionContext.Implicits.global
+import play.api.libs.json._
 
 object Application extends Controller {
   /**
@@ -29,12 +30,6 @@ object Application extends Controller {
       "amountToDeposit" -> longNumber
     )
   )
-  val mainForm = Form(
-    tuple(
-      "bla" -> number,
-      "someOtherBla" -> number
-    )
-  )
   val addCustomerForm = Form(
     tuple(
       "firstName" -> nonEmptyText,
@@ -42,6 +37,9 @@ object Application extends Controller {
       "accountBalance" -> longNumber,
       "dateOfBirth" -> nonEmptyText
     )
+  )
+  val viewCustomerForm = Form(
+    "id" -> longNumber
   )
   // -- Actions
   /**
@@ -59,6 +57,9 @@ object Application extends Controller {
   def showAddCustomerForm = Action {
     Ok(html.addCustomer(addCustomerForm));
   }
+  def showViewCustomerForm = Action {
+    Ok(html.viewCustomer(viewCustomerForm));
+  }
   /**
    * Handles the form submission.
    */
@@ -74,12 +75,23 @@ object Application extends Controller {
       Ok(response.body)
     }
   }
-  /*def addACustomerFunction = Action.async { implicit request =>
+ def addCustomerFunction = Action.async { implicit request =>
     val (firstName, lastName, accountBalance, dateOfBirth) = addCustomerForm.bindFromRequest.get
-    WS.url("http://localhost:8080/customer").post("firstName" -> firstName, "lastName" -> lastName,
-      "accountBalance" -> accountBalance, "birthday" -> dateOfBirth).map { response =>
+    val data = Json.obj(
+      "firstName" -> firstName,
+      "lastName" -> lastName,
+      "accountBalance" -> accountBalance,
+      "birthday" -> dateOfBirth
+    )
+    WS.url("http://localhost:8080/customer").post(data).map { response =>
       Ok(response.body)
     }
-  }*/
-  def addCustomerFunction = TODO
+  }
+ def viewCustomerFunction =  Action.async { implicit request =>
+   val (id) = viewCustomerForm.bindFromRequest.get
+   WS.url("http://localhost:8080/customer/" + id).get().map { response =>
+     Ok(response.body)
+   }
+ }
+
 }

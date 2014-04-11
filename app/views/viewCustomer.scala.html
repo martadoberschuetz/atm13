@@ -1,0 +1,26 @@
+@(viewCustomerForm: Form[Long])
+
+@import helper._
+
+@main("View customer"){
+
+@form(action = routes.Application.viewCustomerFunction, args = 'id -> "viewcustomerform") {
+
+    @inputText(
+        field = viewCustomerForm("id"),
+        args = '_label -> "What is the id of the customer?", 'size -> 3, 'placeholder -> 4
+    )
+
+
+    <p class="buttons">
+         <input type="submit" id="viewCustomer" value="View customer">
+    </p>
+
+}
+}
+
+<p class="buttons">
+    <a href="@routes.Application.index" style="text-decoration:none">
+        <input type="submit" id="backToMain4" value="Back"></a>
+</p>
+

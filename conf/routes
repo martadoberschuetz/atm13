@@ -13,9 +13,13 @@ GET       /withdrawFunction                     controllers.Application.withdraw
 GET       /depositForm                          controllers.Application.showDepositForm
 GET       /depositFunction                      controllers.Application.depositFunction
 
-# Add a customer
+# Add customer
 GET       /addCustomerForm                      controllers.Application.showAddCustomerForm
-GET       /addCustomer                          controllers.Application.addCustomerFunction
+POST      /addCustomer                          controllers.Application.addCustomerFunction
+
+# View customer
+GET       /viewCustomerForm                     controllers.Application.showViewCustomerForm
+POST      /viewCustomer                         controllers.Application.viewCustomerFunction
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
